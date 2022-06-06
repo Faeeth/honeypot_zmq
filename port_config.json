@@ -1,0 +1,82 @@
+{
+    "22":{
+        "port" : 22,
+        "name" : "Ssh (22)",
+        "local_port" : 2222,
+        "protocol": "TCP",
+        "minute_limit" : 3,
+        "hour_limit" : 20
+    },
+    "21": {
+        "port": 21,
+        "name": "Ftp (21)",
+        "local_port": 2121,
+        "protocol": "TCP",
+        "minute_limit": 3,
+        "hour_limit": 20
+    },
+    "3389": {
+        "port": 3389,
+        "name": "Rdp (3389)",
+        "local_port": 3390,
+        "protocol" : "TCP",
+        "minute_limit": 3,
+        "hour_limit": 20
+    },
+    "23": {
+        "port": 23,
+        "name": "Telnet (23)",
+        "local_port": 2323,
+        "protocol": "TCP",
+        "minute_limit": 3,
+        "hour_limit": 20
+    },
+    "53": {
+        "port": 53,
+        "name": "Dns (53)",
+        "local_port": 5353,
+        "protocol": "TCP",
+        "minute_limit": 3,
+        "hour_limit": 20
+    },
+    "80": {
+        "port": 80,
+        "name": "Http (80)",
+        "local_port": 8081,
+        "protocol": "TCP",
+        "minute_limit": 8,
+        "hour_limit": 30
+    },
+    "443": {
+        "port": 443,
+        "name": "Https (443)",
+        "local_port": 4433,
+        "protocol": "TCP",
+        "minute_limit": 8,
+        "hour_limit": 30
+    },
+    "25": {
+        "port": 25,
+        "name": "Smtp (25)",
+        "local_port": 2525,
+        "protocol": "TCP",
+        "minute_limit": 3,
+        "hour_limit": 20
+    },
+    "110": {
+        "port": 110,
+        "name": "Pop3 (110)",
+        "local_port": 1100,
+        "protocol": "TCP",
+        "minute_limit": 3,
+        "hour_limit": 20
+    },
+    "3306": {
+        "port": 3306,
+        "name": "MySQL (3306)",
+        "local_port": 3300,
+        "protocol": "TCP",
+        "minute_limit": 3,
+        "hour_limit": 20
+    }
+}
