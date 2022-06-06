@@ -32,6 +32,7 @@ async def sub(ctx):
         try:
             decompressed_data = zlib.decompress(data).decode("utf-8")
             print(decompressed_data)
+            # PARSE AND SAVE DATA
         except Exception as e:
             print("error : ", e)
 
