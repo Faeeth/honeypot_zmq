@@ -49,7 +49,7 @@
         "name": "Http (80)",
         "local_port": 8081,
         "protocol": "TCP",
-        "socket_message" : "<html><head><title>INTRANET</title></head><body><span>INTRANET</span></body></html>",
+        "socket_message" : "HTTP/1.1 200 OK\nContent-Type: text/html\n\n<html><head><title>INTRANET</title></head><body><span>INTRANET</span></body></html>",
         "minute_limit": 8,
         "hour_limit": 30
     },
@@ -58,7 +58,7 @@
         "name": "Https (443)",
         "local_port": 4433,
         "protocol": "TCP",
-        "socket_message" : "<html><head><title>INTRANET</title></head><body><span>INTRANET</span></body></html>",
+        "socket_message" : "HTTP/1.1 200 OK\nContent-Type: text/html\n\n<html><head><title>INTRANET</title></head><body><span>INTRANET</span></body></html>",
         "minute_limit": 8,
         "hour_limit": 30
     },
