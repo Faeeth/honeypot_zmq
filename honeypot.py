@@ -4,6 +4,7 @@ import json
 import sys
 import os
 import threading
+from datetime import datetime
 import config
 import ZMQ_client
 
@@ -31,7 +32,18 @@ class SocketThread(threading.Thread):
     def run(self):
         listen_port(self.ip, self.local_port, self.port, self.name, self.protocol, self.minute_limit, self.hour_limit, self.socket_message)
 
-
+def parse_data(ip, port_client, port_honeypot):
+    try:
+        data = {
+            "agent_uid" : config.agent_uid,
+            "ip" : str(ip),
+            "timestamp" : int(str(datetime.now().timestamp()).split('.')[0]),
+            "port_client" : str(port_client),
+            "port_honeypot" : str(port_honeypot)
+        }
+        return data
+    except:
+        return False
 
 def listen_port(host, localport, port, portname, protocol,minute_limit,hour_limit,socket_message):
     try:
@@ -58,10 +70,12 @@ def listen_port(host, localport, port, portname, protocol,minute_limit,hour_limi
             try:
                 if protocol == "TCP":
                     data = insock.recv(1024)
-                    pub_socket.send(data)
+                    parsed_data = parse_data(address[0], address[1], portname)
                     insock.send(socket_message.encode())
                     insock.close()
                     # LOGGING
+                    if parsed_data:
+                        pub_socket.send(("logs",parsed_data))
                 if protocol == "UDP":
                     continue
                     # TO DO
