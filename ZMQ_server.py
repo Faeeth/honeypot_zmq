@@ -25,7 +25,7 @@ async def sub(ctx):
     socket.curve_secretkey = secret_key
     socket.curve_server = True
 
-    socket.bind(config.url)
+    socket.bind(config.zmq_server_sub_bind_url)
 
     while True:
         data = await socket.recv()
