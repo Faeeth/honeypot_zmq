@@ -5,6 +5,7 @@ import sys
 import os
 import threading
 import config
+import ZMQ_client
 
 def get_local_ip():
     try:
@@ -57,7 +58,7 @@ def listen_port(host, localport, port, portname, protocol,minute_limit,hour_limi
             try:
                 if protocol == "TCP":
                     data = insock.recv(1024)
-                    # DO SOMETING WITH THE DATA
+                    pub_socket.send(data)
                     insock.send(socket_message.encode())
                     insock.close()
                     # LOGGING
@@ -72,6 +73,7 @@ def listen_port(host, localport, port, portname, protocol,minute_limit,hour_limi
 
 if __name__ == '__main__':
     try:
+        pub_socket = ZMQ_client.zmq_pub()
         with open('port_config.json') as json_file:
             data = json.load(json_file)
             if len(data) == 0:
