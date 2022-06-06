@@ -4,6 +4,7 @@
         "name" : "Ssh (22)",
         "local_port" : 2222,
         "protocol": "TCP",
+        "socket_message": "SSH-2.0-OpenSSH",
         "minute_limit" : 3,
         "hour_limit" : 20
     },
@@ -12,6 +13,7 @@
         "name": "Ftp (21)",
         "local_port": 2121,
         "protocol": "TCP",
+        "socket_message" : "220 FTP Server ready.",
         "minute_limit": 3,
         "hour_limit": 20
     },
@@ -20,6 +22,7 @@
         "name": "Rdp (3389)",
         "local_port": 3390,
         "protocol" : "TCP",
+        "socket_message": "Remote Desktop Protocol NTLM Info:\n  OS: Windows 10/Windows Server 2016\n  OS Build: 10.0.14393",
         "minute_limit": 3,
         "hour_limit": 20
     },
@@ -28,6 +31,7 @@
         "name": "Telnet (23)",
         "local_port": 2323,
         "protocol": "TCP",
+        "socket_message" : "Ubee Interactive Corporation Telnet Server",
         "minute_limit": 3,
         "hour_limit": 20
     },
@@ -36,6 +40,7 @@
         "name": "Dns (53)",
         "local_port": 5353,
         "protocol": "TCP",
+        "socket_message" : "Bind 9.3.2",
         "minute_limit": 3,
         "hour_limit": 20
     },
@@ -44,6 +49,7 @@
         "name": "Http (80)",
         "local_port": 8081,
         "protocol": "TCP",
+        "socket_message" : "<html><head><title>INTRANET</title></head><body><span>INTRANET</span></body></html>",
         "minute_limit": 8,
         "hour_limit": 30
     },
@@ -52,6 +58,7 @@
         "name": "Https (443)",
         "local_port": 4433,
         "protocol": "TCP",
+        "socket_message" : "<html><head><title>INTRANET</title></head><body><span>INTRANET</span></body></html>",
         "minute_limit": 8,
         "hour_limit": 30
     },
@@ -60,6 +67,7 @@
         "name": "Smtp (25)",
         "local_port": 2525,
         "protocol": "TCP",
+        "socket_message" : "421 Too many concurrent SMTP connections; please try again later.",
         "minute_limit": 3,
         "hour_limit": 20
     },
@@ -68,6 +76,7 @@
         "name": "Pop3 (110)",
         "local_port": 1100,
         "protocol": "TCP",
+        "socket_message" : "+OK POP3 ready",
         "minute_limit": 3,
         "hour_limit": 20
     },
@@ -76,6 +85,7 @@
         "name": "MySQL (3306)",
         "local_port": 3300,
         "protocol": "TCP",
+        "socket_message": "\\x04Host \\'127.0.0.1\\' is not allowed to connect to this MySQL server",
         "minute_limit": 3,
         "hour_limit": 20
     }
