@@ -1,6 +1,7 @@
 import zmq
 import zmq.auth
 import os
+import config
 
 def new_certificate(dirname,name):
     try:
@@ -13,4 +14,4 @@ def new_certificate(dirname,name):
 
 
 if __name__ == "__main__":
-    print("Success.") if new_certificate("certs","honeypot") else print("Failed.")
+    print("Success.") if new_certificate(config.certs_dirname,config.certs_name) else print("Failed.")
