@@ -6,7 +6,7 @@ import config
 
 class zmq_pub():
     def __init__(self):
-        self.ctx = zmq.asyncio.Context()
+        self.ctx = zmq.Context()
         self.launch()
 
 
@@ -30,7 +30,7 @@ class zmq_pub():
         self.socket.curve_serverkey = server_public_key
 
         # Connect to server
-        self.socket.connect(config.url)
+        self.socket.connect(config.zmq_client_pub_connect_url)
 
     def send(self,data):
         try:
