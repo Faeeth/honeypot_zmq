@@ -5,7 +5,7 @@ import sys
 import os
 import threading
 from datetime import datetime
-import config
+from config import config
 import ZMQ_client
 
 def get_local_ip():
@@ -32,14 +32,15 @@ class SocketThread(threading.Thread):
     def run(self):
         listen_port(self.ip, self.local_port, self.port, self.name, self.protocol, self.minute_limit, self.hour_limit, self.socket_message)
 
-def parse_data(ip, port_client, port_honeypot):
+def parse_data(ip, port_client, port_honeypot, data_content):
     try:
         data = {
             "agent_uid" : config.agent_uid,
             "ip" : str(ip),
             "timestamp" : int(str(datetime.now().timestamp()).split('.')[0]),
             "port_client" : str(port_client),
-            "port_honeypot" : str(port_honeypot)
+            "port_honeypot" : str(port_honeypot),
+            "data" : str(data_content)
         }
         return data
     except:
@@ -60,23 +61,21 @@ def listen_port(host, localport, port, portname, protocol,minute_limit,hour_limi
         s.bind((host, localport))
         if protocol == "TCP":
             s.listen(65536)
-        print('Honey Port capture sur le port %s' % (portname))
+        print('Honey Port capture sur le port %s -> local (%s)' % (portname,localport))
         while True:
-            if protocol == "TCP":
-                (insock, address) = s.accept()
-            if protocol == "UDP":
-                data, address = s.recvfrom(4096)
-            print('Tentative de connexion de %s:%d sur le port %s (%s)' % (address[0], address[1], portname, protocol))
             try:
                 if protocol == "TCP":
-                    data = insock.recv(1024)
-                    parsed_data = parse_data(address[0], address[1], portname)
+                    (insock, address) = s.accept()
+                    print('Tentative de connexion de %s:%d sur le port %s (%s)' % (address[0], address[1], portname, protocol))
+                    data_content = insock.recv(1024)
                     insock.send(socket_message.encode())
                     insock.close()
                     # LOGGING
+                    parsed_data = parse_data(address[0], address[1], portname, data_content)
                     if parsed_data:
                         pub_socket.send(("logs",parsed_data))
                 if protocol == "UDP":
+                    data_content, address = s.recvfrom(4096)
                     continue
                     # TO DO
             except socket.error:

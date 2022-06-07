@@ -1,12 +1,13 @@
 import zmq.auth
 import os
-import config
+from config import config
 
 def new_certificate(dirname,name):
     try:
-        if not os.path.isdir(dirname):
-            os.makedirs(dirname)
-        zmq.auth.create_certificates(f"./{dirname}", name)
+        dir_url = f"../{dirname}"
+        if not os.path.isdir(dir_url):
+            os.makedirs(dir_url)
+        zmq.auth.create_certificates(dir_url, name)
         return True
     except Exception as e:
         return False

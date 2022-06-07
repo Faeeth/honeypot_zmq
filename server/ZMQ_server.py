@@ -3,19 +3,20 @@ import zmq.auth
 import asyncio
 import zmq.asyncio
 import zlib
-import config
+from config import config
 import os
 import sys
 
-def auth_service():
-    if not os.path.isdir(config.certs_dirname):
-        sys.exit(f"[Error] : {config.certs_dirname} folder not found.")
+def auth_service(certs_url):
+    if not os.path.isdir(certs_url):
+        sys.exit(f"[Error] : {certs_url} folder not found.")
     auth = zmq.auth.Authenticator(ctx)
     auth.start()
-    auth.configure_curve(location=f"./{config.certs_dirname}")
+    auth.configure_curve(location=certs_url)
 
 async def sub(ctx):
-    auth_service()
+    certs_url = f"../{config.certs_dirname}"
+    auth_service(certs_url)
     print("-- SUBSCRIBER SERVER --")
     socket = ctx.socket(zmq.SUB)
 
@@ -23,7 +24,7 @@ async def sub(ctx):
     socket.setsockopt(zmq.SUBSCRIBE, b"")
 
     # Load server keys.
-    public_key, secret_key = zmq.auth.load_certificate(f"./{config.certs_dirname}/{config.certs_name}.key_secret")
+    public_key, secret_key = zmq.auth.load_certificate(f"{certs_url}/{config.certs_name}.key_secret")
 
     socket.curve_publickey = public_key
     socket.curve_secretkey = secret_key
