@@ -4,8 +4,12 @@ import asyncio
 import zmq.asyncio
 import zlib
 import config
+import os
+import sys
 
 def auth_service():
+    if not os.path.isdir(config.certs_dirname):
+        sys.exit(f"[Error] : {config.certs_dirname} folder not found.")
     auth = zmq.auth.Authenticator(ctx)
     auth.start()
     auth.configure_curve(location=f"./{config.certs_dirname}")

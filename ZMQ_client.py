@@ -3,6 +3,8 @@ import zmq
 import zmq.auth
 import zlib
 import config
+import os
+import sys
 
 class zmq_pub():
     def __init__(self):
@@ -11,6 +13,8 @@ class zmq_pub():
 
 
     def auth_service(self):
+        if not os.path.isdir(config.certs_dirname):
+            sys.exit(f"[Error] : {config.certs_dirname} folder not found.")
         self.auth = zmq.auth.Authenticator(self.ctx)
         self.auth.start()
         self.auth.configure_curve(location=f"./{config.certs_dirname}")
