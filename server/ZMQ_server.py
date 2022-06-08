@@ -4,10 +4,9 @@ import asyncio
 import zmq.asyncio
 import zlib
 import sys
-sys.path.insert(0, '../')
-from config import config
 import os
-
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from config import config
 
 def auth_service(certs_url):
     if not os.path.isdir(certs_url):

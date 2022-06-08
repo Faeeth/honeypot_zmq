@@ -2,8 +2,8 @@
 import socket
 import json
 import sys
-sys.path.insert(0, '../')
 import os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import threading
 from datetime import datetime
 from config import config

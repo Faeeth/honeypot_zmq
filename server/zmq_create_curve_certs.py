@@ -1,7 +1,7 @@
 import zmq.auth
 import os
 import sys
-sys.path.insert(0, '../')
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from config import config
 
 def new_certificate(dirname,name):

@@ -2,9 +2,9 @@ import zmq
 import zmq.auth
 import zlib
 import sys
-sys.path.insert(0, '../')
-from config import config
 import os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from config import config
 import sys
 
 class zmq_pub():
