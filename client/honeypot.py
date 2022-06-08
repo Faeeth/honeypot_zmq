@@ -88,7 +88,7 @@ def listen_port(host, localport, port, portname, protocol,minute_limit,hour_limi
 if __name__ == '__main__':
     try:
         pub_socket = ZMQ_client.zmq_pub()
-        with open('port_config.json') as json_file:
+        with open(f"{os.path.dirname(os.path.abspath(__file__))}/{config.port_config_filename}") as json_file:
             data = json.load(json_file)
             if len(data) == 0:
                 sys.exit('Veuillez renseigner au moins 1 port dans port_config.json\nPar exemple :\n{\n"22":{\n    "port" : 22,\n    "name" : "Ssh (22)",\n    "local_port" : 2222,\n    "protocol": "TCP",\n    "minute_limit" : 3,\n    "hour_limit" : 20\n}\n}')
