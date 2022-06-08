@@ -40,7 +40,7 @@ def parse_data(ip, port_client, port_honeypot, data_content):
             "timestamp" : int(str(datetime.now().timestamp()).split('.')[0]),
             "port_client" : str(port_client),
             "port_honeypot" : str(port_honeypot),
-            "data" : str(data_content)
+            "data" : data_content.decode("utf-8").replace('"','\\"')
         }
         return data
     except:
@@ -73,7 +73,7 @@ def listen_port(host, localport, port, portname, protocol,minute_limit,hour_limi
                     # LOGGING
                     parsed_data = parse_data(address[0], address[1], portname, data_content)
                     if parsed_data:
-                        pub_socket.send(("logs",parsed_data))
+                        pub_socket.send(("honeypot_logs",parsed_data))
                 if protocol == "UDP":
                     data_content, address = s.recvfrom(4096)
                     continue
