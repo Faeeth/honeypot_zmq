@@ -5,7 +5,8 @@ import zmq.asyncio
 import zlib
 import sys
 import os
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, root_path)
 from config import config
 
 def auth_service(certs_url):
@@ -17,7 +18,7 @@ def auth_service(certs_url):
 
 
 async def sub(ctx):
-    certs_url = f"../{config.certs_dirname}"
+    certs_url = f"{root_path}/{config.certs_dirname}"
     auth_service(certs_url)
     print("-- SUBSCRIBER SERVER --")
     socket = ctx.socket(zmq.SUB)

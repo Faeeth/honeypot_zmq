@@ -3,14 +3,15 @@ import zmq.auth
 import zlib
 import sys
 import os
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, root_path)
 from config import config
 import sys
 
 class zmq_pub():
     def __init__(self):
         self.ctx = zmq.Context()
-        self.certs_url = f"../{config.certs_dirname}"
+        self.certs_url = f"{root_path}/{config.certs_dirname}"
         self.launch()
 
     def launch(self):
