@@ -3,10 +3,10 @@ import zmq.auth
 import asyncio
 import zmq.asyncio
 import zlib
+import sys
+sys.path.insert(0, '../')
 from config import config
 import os
-import sys
-import json
 
 
 def auth_service(certs_url):

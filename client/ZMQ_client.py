@@ -1,6 +1,8 @@
 import zmq
 import zmq.auth
 import zlib
+import sys
+sys.path.insert(0, '../')
 from config import config
 import os
 import sys

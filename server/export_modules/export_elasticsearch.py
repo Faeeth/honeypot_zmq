@@ -1,4 +1,3 @@
-from config import config
 from elasticsearch import Elasticsearch
 import sys
 
