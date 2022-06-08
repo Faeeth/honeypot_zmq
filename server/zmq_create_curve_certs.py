@@ -6,7 +6,7 @@ from config import config
 
 def new_certificate(dirname,name):
     try:
-        dir_url = f"../{dirname}"
+        dir_url = f"{os.path.dirname(os.path.dirname(os.path.abspath(__file__)))}/{dirname}"
         if not os.path.isdir(dir_url):
             os.makedirs(dir_url)
         zmq.auth.create_certificates(dir_url, name)
