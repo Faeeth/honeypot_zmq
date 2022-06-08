@@ -3,7 +3,7 @@ zmq_server_sub_bind_url = "tcp://*:5000"
 zmq_client_pub_connect_url = "tcp://127.0.0.1:5000"
 certs_dirname = "certs"
 certs_name = "honeypot-cert"
-
+port_config_filename = "port_config.json"
 export_type = "ELASTICSEARCH"
 
 ### ELASTICSEARCH ###
