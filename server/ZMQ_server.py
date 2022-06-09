@@ -44,9 +44,8 @@ async def sub(ctx):
         try:
             decompressed_data = zlib.decompress(data).decode("utf-8")
             if isinstance(decompressed_data,str):
-                print(decompressed_data)
                 topic, true_data = parse_data_received(decompressed_data)
-                true_data["country"], true_data["hostname"], true_data["longitude"], true_data["latitude"] = country_ip("90.114.230.113")
+                true_data["country"], true_data["hostname"], true_data["longitude"], true_data["latitude"] = country_ip(true_data["ip"])
                 if str(topic).lower() == "honeypot_logs":
                     if str(config.export_type).lower() == "elasticsearch":
                         sender.send(true_data)
