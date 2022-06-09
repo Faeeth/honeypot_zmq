@@ -8,6 +8,8 @@ import os
 root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, root_path)
 from config import config
+import ipinfo
+import json
 
 def auth_service(certs_url):
     if not os.path.isdir(certs_url):
@@ -35,16 +37,16 @@ async def sub(ctx):
 
     socket.bind(config.zmq_server_sub_bind_url)
 
-    sender = set_sender("elasticsearch")
+    sender = set_sender(config.export_type)
 
     while True:
         data = await socket.recv()
         try:
             decompressed_data = zlib.decompress(data).decode("utf-8")
             if isinstance(decompressed_data,str):
+                print(decompressed_data)
                 topic, true_data = parse_data_received(decompressed_data)
-                print(topic)
-                print(true_data)
+                true_data["country"], true_data["hostname"], true_data["longitude"], true_data["latitude"] = country_ip("90.114.230.113")
                 if str(topic).lower() == "honeypot_logs":
                     if str(config.export_type).lower() == "elasticsearch":
                         sender.send(true_data)
@@ -58,7 +60,6 @@ def set_sender(type):
         sender = my_elasticsearch(url=config.elasticsearch_url, username=config.elasticsearch_username,
                                   password=config.elasticsearch_password, index=config.elasticsearch_index)
         return sender
-
 
 def parse_data_received(data):
     try:
@@ -77,12 +78,26 @@ def parse_data_received(data):
                 true_data = true_data[1:]
             if true_data[0] == " ":
                 true_data = true_data[1:]
-            return (topic, true_data.replace("'",'"'))
+            return topic, json.loads(true_data.replace("'", '"'), strict=False)
         else:
             return (False, False)
     except Exception as e:
         print(e)
         return (False,False)
+
+def country_ip(ip):
+    h = [x for x in config.ip_country_list if x[0] == str(ip)]
+    if len(h) > 0:
+        return (str(h[0][1]),str(h[0][2]),str(h[0][3]),str(h[0][4]))
+    else:
+        try:
+            handler = ipinfo.getHandler(config.ipinfo_access_token)
+            details = handler.getDetails(ip)
+            config.ip_country_list.append([f"{str(ip)}", details.country, details.hostname, details.longitude, details.latitude])
+            return (details.country, details.hostname, details.longitude, details.latitude)
+        except Exception as e:
+            print(f"Error : {e}")
+            return ("","","","")
 
 
 if __name__ == "__main__":
