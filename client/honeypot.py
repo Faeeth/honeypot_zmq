@@ -41,7 +41,7 @@ def parse_data(ip, port_client, port_honeypot, data_content):
             "timestamp" : int(str(datetime.now().timestamp()).split('.')[0]),
             "port_client" : str(port_client),
             "port_honeypot" : str(port_honeypot),
-            "data" : data_content.decode("utf-8").replace('"','\"')
+            "data" : data_content.decode("utf-8").replace('"',"'")
         }
         return data
     except:
